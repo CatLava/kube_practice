@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-restapp
+  labels:
+    app: backend-restapp
+    # Defnining the tier where it sits with a microservice
+    tier: backend
+spec:
+  # Define replica set here
+  replicas: 3
+  selector:
+    # match for tying in the service
+    matchLabels:
+      app: backend-restapp
+  # Template defines container specs
+  template:
+    metadata:
+      labels:
+        app: backend-restapp
+        tier: backend
+    spec:
+      containers:
+        - name: backend-restapp
+          image: stacksimplify/kube-helloworld:1.0.0
+          ports:
+            - containerPort: 8080

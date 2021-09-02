@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-nginxapp
+  labels:
+    app: frontend-nginxapp
+    # Defnining the tier where it sits with a microservice
+    tier: frontend
+spec:
+  # Define replica set here
+  replicas: 3
+  selector:
+    # match for tying in the service
+    matchLabels:
+      app: frontend-nginxapp
+  # Template defines container specs
+  template:
+    metadata:
+      labels:
+        app: frontend-nginxapp
+        tier: frontend
+    spec:
+      containers:
+        - name: frontend-nginxapp
+          image: stacksimplify/kube-frontend-nginx:1.0.0
+          ports:
+            - containerPort: 80

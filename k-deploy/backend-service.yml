@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  # name is crucial for nginx proxy bypass defined in container
+  name: my-backend-service
+  labels:
+    app: backend-restapp
+    tier: backend
+spec:
+  # This is default, defining anyway
+  # type: ClusterIP
+  selector:
+    app: backend-restapp
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
